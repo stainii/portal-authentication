@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create user
+      author: Stijn Hooft
+      changes:
+        - createTable:
+            tableName: user_auth
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+        - createSequence:
+            incrementBy: 50
+            sequenceName: user_id_sequence

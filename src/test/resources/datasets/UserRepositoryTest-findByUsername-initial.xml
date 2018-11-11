@@ -1,0 +1,14 @@
+<dataset>
+    <user_auth
+        id="1"
+        username="admin"
+        password="qsdqds"
+        role="ADMIN"
+    />
+    <user_auth
+        id="2"
+        username="stijn"
+        password="kmlkmkm"
+        role="USER"
+    />
+</dataset>
