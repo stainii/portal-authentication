@@ -4,7 +4,7 @@
 
     <groupId>be.stijnhooft</groupId>
     <artifactId>portal-authentication</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>portal-authentication</name>
@@ -51,6 +51,7 @@
         <environment>dev</environment>
         <database-host>localhost</database-host>
         <database-port>5435</database-port>
+        <eureka.server.uri>http://localhost:8761</eureka.server.uri>
     </properties>
 
     <dependencyManagement>
@@ -202,13 +203,16 @@
             <id>production</id>
             <properties>
                 <environment>production</environment>
+                <database-host>portal-authentication-db</database-host>
+                <database-port>5432</database-port>
+                <eureka.server.uri>http://portal-eureka:8761</eureka.server.uri>
             </properties>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>com.spotify</groupId>
                         <artifactId>dockerfile-maven-plugin</artifactId>
-                        <version>1.3.7</version>
+                       <version>1.4.8</version>
                         <executions>
                             <execution>
                                 <phase>install</phase>

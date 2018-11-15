@@ -19,3 +19,9 @@ At this moment, there is no registration functionality written yet.
 You need to add your own user manually in the database.
 
 To generate a password hash, you can use `be.stijnhooft.portal.authentication.PasswordGenerator` in the `src/test/java` folder. 
+
+## Environment variables
+| Name | Example value | Description | Required? |
+| ---- | ------------- | ----------- | -------- |
+| POSTGRES_PASSWORD | secret | Password to log in to the database | required
+| JAVA_OPTS_PORTAL_AUTHENTICATION | -Xmx400m -Xms400m | Java opts you want to pass to the JVM | optional
