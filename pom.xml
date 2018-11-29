@@ -23,9 +23,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git://github.com/stainii/portal-model.git</connection>
-        <developerConnection>scm:git:ssh://github.com:stainii/portal-model.git</developerConnection>
-        <url>http://github.com/stainii/portal-model/tree/master</url>
+        <connection>scm:git:git://github.com/stainii/portal-authentication.git</connection>
+        <developerConnection>scm:git:ssh://github.com:stainii/portal-authentication.git</developerConnection>
+        <url>http://github.com/stainii/portal-authentication/tree/master</url>
     </scm>
     <issueManagement>
         <system>Trello</system>
