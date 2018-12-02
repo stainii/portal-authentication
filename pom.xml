@@ -4,7 +4,7 @@
 
     <groupId>be.stijnhooft</groupId>
     <artifactId>portal-authentication</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>portal-authentication</name>
@@ -201,10 +201,10 @@
                     <plugin>
                         <groupId>com.spotify</groupId>
                         <artifactId>dockerfile-maven-plugin</artifactId>
-                       <version>1.4.8</version>
+                        <version>1.4.8</version>
                         <executions>
                             <execution>
-                                <phase>install</phase>
+                                <id>default</id>
                                 <goals>
                                     <goal>build</goal>
                                     <goal>push</goal>
@@ -260,6 +260,10 @@
             <id>portal-ci-nexus-releases</id>
             <url>http://portal-ci.westeurope.cloudapp.azure.com:8081/repository/maven-releases/</url>
         </repository>
+        <repository>
+            <id>portal-ci-nexus-snapshots</id>
+            <url>http://portal-ci.westeurope.cloudapp.azure.com:8081/repository/maven-snapshots/</url>
+        </repository>
     </repositories>
 
     <distributionManagement>
@@ -267,6 +271,10 @@
             <id>portal-ci-nexus-releases</id>
             <url>http://portal-ci.westeurope.cloudapp.azure.com:8081/repository/maven-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>portal-ci-nexus-snapshots</id>
+            <url>http://portal-ci.westeurope.cloudapp.azure.com:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
 </project>
