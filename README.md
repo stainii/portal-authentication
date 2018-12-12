@@ -1,5 +1,5 @@
 # portal-authentication
-[![Build Status](http://portal-ci.westeurope.cloudapp.azure.com/buildStatus/icon?job=portal-authentication/master)](http://portal-ci.westeurope.cloudapp.azure.com/job/portal-authentication/job/master/)
+[![Build Status](https://server.stijnhooft.be/jenkins/buildStatus/icon?job=portal-authentication/master)](https://server.stijnhooft.be/jenkins/job/portal-authentication/master)
 
 Authentication server for the portal.
 
