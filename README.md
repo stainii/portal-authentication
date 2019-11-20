@@ -24,4 +24,4 @@ To generate a password hash, you can use `be.stijnhooft.portal.authentication.Pa
 | Name | Example value | Description | Required? |
 | ---- | ------------- | ----------- | -------- |
 | POSTGRES_PASSWORD | secret | Password to log in to the database | required
-| JAVA_OPTS_PORTAL_AUTHENTICATION | -Xmx400m -Xms400m | Java opts you want to pass to the JVM | optional
+| JAVA_OPTS_AUTHENTICATION | -Xmx400m -Xms400m | Java opts you want to pass to the JVM | optional

@@ -51,7 +51,6 @@
         <environment>dev</environment>
         <database-host>localhost</database-host>
         <database-port>5435</database-port>
-        <eureka.server.uri>http://localhost:8761</eureka.server.uri>
     </properties>
 
     <dependencyManagement>
@@ -194,7 +193,6 @@
                 <environment>production</environment>
                 <database-host>portal-authentication-db</database-host>
                 <database-port>5432</database-port>
-                <eureka.server.uri>http://portal-eureka:8761</eureka.server.uri>
             </properties>
             <build>
                 <plugins>
