@@ -4,7 +4,7 @@
 
     <groupId>be.stijnhooft</groupId>
     <artifactId>portal-authentication</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>portal-authentication</name>
@@ -199,7 +199,7 @@
                     <plugin>
                         <groupId>com.spotify</groupId>
                         <artifactId>dockerfile-maven-plugin</artifactId>
-                        <version>1.4.8</version>
+                        <version>1.4.13</version>
                         <executions>
                             <execution>
                                 <id>default</id>
