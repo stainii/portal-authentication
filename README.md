@@ -29,7 +29,7 @@ To generate a password hash, you can use `be.stijnhooft.portal.authentication.Pa
 ### Release
 #### Maven release
 To release a module, this project makes use of the JGitflow plugin.
-**Do use the Maven profile `-Pproduction`**
+**Do use the Maven profile `-Pproduction`**.
 
 More information can be found [here](https://gist.github.com/lemiorhan/97b4f827c08aed58a9d8).
 
