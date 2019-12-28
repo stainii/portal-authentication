@@ -1,5 +1,5 @@
 # portal-authentication
-[![Build Status](http://portal-ci.westeurope.cloudapp.azure.com/buildStatus/icon?job=portal-authentication/master)](http://portal-ci.westeurope.cloudapp.azure.com/job/portal-authentication/job/master/)
+[![Build Status](https://server.stijnhooft.be/jenkins/buildStatus/icon?job=portal-authentication/master)](https://server.stijnhooft.be/jenkins/job/portal-authentication/master)
 
 Authentication server for the portal.
 
@@ -24,4 +24,16 @@ To generate a password hash, you can use `be.stijnhooft.portal.authentication.Pa
 | Name | Example value | Description | Required? |
 | ---- | ------------- | ----------- | -------- |
 | POSTGRES_PASSWORD | secret | Password to log in to the database | required
-| JAVA_OPTS_PORTAL_AUTHENTICATION | -Xmx400m -Xms400m | Java opts you want to pass to the JVM | optional
+| JAVA_OPTS_AUTHENTICATION | -Xmx400m -Xms400m | Java opts you want to pass to the JVM | optional
+
+### Release
+#### Maven release
+To release a module, this project makes use of the JGitflow plugin.
+**Do use the Maven profile `-Pproduction`**.
+
+More information can be found [here](https://gist.github.com/lemiorhan/97b4f827c08aed58a9d8).
+
+At the moment, releases are made on a local machine. No Jenkins job has been made (yet).
+
+#### Docker release
+A Docker release is made, by running `mvn clean deploy -Pproduction` on the Maven release branch.
