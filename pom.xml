@@ -46,11 +46,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <!-- default parameters used in the application. Override these with a Maven profile -->
-        <environment>dev</environment>
-        <database-host>localhost</database-host>
-        <database-port>5435</database-port>
     </properties>
 
     <dependencyManagement>
@@ -193,11 +188,6 @@
     <profiles>
         <profile>
             <id>production</id>
-            <properties>
-                <environment>production</environment>
-                <database-host>portal-authentication-db</database-host>
-                <database-port>5432</database-port>
-            </properties>
             <build>
                 <plugins>
                     <plugin>
