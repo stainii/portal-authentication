@@ -4,7 +4,7 @@
 
     <groupId>be.stijnhooft</groupId>
     <artifactId>portal-authentication</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <name>portal-authentication</name>
@@ -46,11 +46,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <!-- default parameters used in the application. Override these with a Maven profile -->
-        <environment>dev</environment>
-        <database-host>localhost</database-host>
-        <database-port>5435</database-port>
     </properties>
 
     <dependencyManagement>
@@ -69,6 +64,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -189,11 +188,6 @@
     <profiles>
         <profile>
             <id>production</id>
-            <properties>
-                <environment>production</environment>
-                <database-host>portal-authentication-db</database-host>
-                <database-port>5432</database-port>
-            </properties>
             <build>
                 <plugins>
                     <plugin>

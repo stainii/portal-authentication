@@ -41,8 +41,10 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
             // The filter needs this auth manager to authenticate the user.
             .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
             .authorizeRequests()
-            // allow login path
+            // allow login path and actuator
             .antMatchers( "/auth/").permitAll()
+            .antMatchers( "/actuator").permitAll()
+            .antMatchers( "/actuator/**").permitAll()
             // any other requests must be authenticated
             .anyRequest().authenticated();
     }
