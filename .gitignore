@@ -48,5 +48,4 @@ Thumbs.db
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
-# secrets
 src/main/resources/config/application.properties
