@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
     @GetMapping("/login")
-    public String login(@RequestParam(name="redirectTo", required=false, defaultValue="http://portal.stijnhooft.be") String redirectTo, Model model) {
+    public String login(@RequestParam(required=false, defaultValue="http://portal.stijnhooft.be") String redirectTo, Model model) {
         model.addAttribute("redirectTo", redirectTo);
         return "login";
     }

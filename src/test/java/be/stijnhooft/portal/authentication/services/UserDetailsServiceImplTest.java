@@ -2,21 +2,22 @@ package be.stijnhooft.portal.authentication.services;
 
 import be.stijnhooft.portal.authentication.model.User;
 import be.stijnhooft.portal.authentication.repositories.UserRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class UserDetailsServiceImplTest {
 
     @InjectMocks
@@ -40,9 +41,11 @@ public class UserDetailsServiceImplTest {
         verify(userRepository).findByUsername("stijn");
     }
 
-    @Test(expected = UsernameNotFoundException.class)
+    @Test
     public void loadUserByUsernameWhenNotFound() {
-        doReturn(Optional.empty()).when(userRepository).findByUsername("test");
-        userDetailsService.loadUserByUsername("test");
+        assertThrows(UsernameNotFoundException.class, () -> {
+            doReturn(Optional.empty()).when(userRepository).findByUsername("test");
+            userDetailsService.loadUserByUsername("test");
+        });
     }
 }

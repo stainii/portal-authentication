@@ -52,7 +52,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
     // Spring has UserDetailsService interface, which can be overridden to provide our implementation for fetching user from database (or any other source).
     // The UserDetailsService object is used by the auth manager to load the user from database.
     // In addition, we need to define the password encoder also. So, auth manager can compare and verify passwords.
-    @Override
+    /*~~(Migrate manually based on https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)~~>*/@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
