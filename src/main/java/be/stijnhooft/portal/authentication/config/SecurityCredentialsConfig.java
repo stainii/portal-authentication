@@ -1,21 +1,28 @@
 package be.stijnhooft.portal.authentication.config;
 
 import be.stijnhooft.portal.authentication.filters.JwtUsernameAndPasswordAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
-import javax.servlet.http.HttpServletResponse;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 
-@EnableWebSecurity 	// Enable security config. This annotation denotes config for spring security.
-public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
+@Configuration
+@EnableWebSecurity
+public class SecurityCredentialsConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -23,37 +30,32 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtConfig jwtConfig;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .cors().and()
-            .csrf().disable()
-            // make sure we use stateless session; session won't be used to store user's state.
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            // handle an authorized attempts
-            .exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
-            .and()
-            // Add a filter to validate user credentials and add token in the response header
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
+        JwtUsernameAndPasswordAuthenticationFilter jwtFilter = new JwtUsernameAndPasswordAuthenticationFilter(authManager, jwtConfig);
 
-            // What's the authenticationManager()?
-            // An object provided by WebSecurityConfigurerAdapter, used to authenticate the user passing user's credentials
-            // The filter needs this auth manager to authenticate the user.
-            .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
-            .authorizeRequests()
-            // allow login path and actuator
-            .antMatchers( "/auth/").permitAll()
-            .antMatchers( "/actuator").permitAll()
-            .antMatchers( "/actuator/**").permitAll()
-            // any other requests must be authenticated
-            .anyRequest().authenticated();
+        http
+            .cors(withDefaults())
+            .csrf(AbstractHttpConfigurer::disable)
+            .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .exceptionHandling(handling -> handling.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)))
+            .addFilter(jwtFilter)
+            .authorizeHttpRequests(requests -> requests
+                .requestMatchers("/auth/").permitAll()
+                .requestMatchers("/actuator").permitAll()
+                .requestMatchers("/actuator/**").permitAll()
+                .anyRequest().authenticated());
+
+        return http.build();
     }
 
-    // Spring has UserDetailsService interface, which can be overridden to provide our implementation for fetching user from database (or any other source).
-    // The UserDetailsService object is used by the auth manager to load the user from database.
-    // In addition, we need to define the password encoder also. So, auth manager can compare and verify passwords.
-    /*~~(Migrate manually based on https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)~~>*/@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
@@ -66,4 +68,13 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
 }

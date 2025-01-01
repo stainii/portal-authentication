@@ -2,7 +2,7 @@ package be.stijnhooft.portal.authentication.model;
 
 import lombok.Data;
 
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @Data
