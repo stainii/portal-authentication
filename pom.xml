@@ -39,7 +39,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.13</version>
+        <version>3.1.12</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
@@ -270,25 +270,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>portal-nexus-releases</id>
-            <url>https://server.stijnhooft.be/nexus/repository/maven-releases/</url>
-        </repository>
-        <repository>
-            <id>portal-nexus-snapshots</id>
-            <url>https://server.stijnhooft.be/nexus/repository/maven-snapshots/</url>
-        </repository>
     </repositories>
 
-    <distributionManagement>
-        <repository>
-            <id>portal-nexus-releases</id>
-            <url>https://server.stijnhooft.be/nexus/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>portal-nexus-snapshots</id>
-            <url>https://server.stijnhooft.be/nexus/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>
